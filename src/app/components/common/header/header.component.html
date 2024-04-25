@@ -9,7 +9,7 @@
       </svg>
     </div>
     <a href="#" class="logo">
-      <img src="assets/images/logo.png" alt="logo">
+      <img src="../../../../assets/images/logo.png" alt="logo">
     </a>
     <nav class="menu" id="menu">
       <div class="close">
@@ -31,22 +31,21 @@
       </div>
       <ul>
         <li class="menu-item">
-          <a href="#">Пиццы</a>
+          <a [routerLink]="''" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
         </li>
         <li class="menu-item">
-          <a href="#">Напитки</a>
+          <a [routerLink]="'/products'" routerLinkActive="active">Пиццы</a>
         </li>
         <li class="menu-item">
-          <a href="#">Доставка и оплата</a>
+          <a [routerLink]="'/about'" routerLinkActive="active">О нас</a>
         </li>
         <li class="menu-item">
-          <a href="#">Контакты</a>
+          <a [routerLink]="'/order'" routerLinkActive="active">Сделать заказ</a>
         </li>
       </ul>
     </nav>
     <div class="cart">
-      <img src="assets/images/commerce-and-shopping.png" alt="">
+      <img src="../../../../assets/images/commerce-and-shopping.png" alt="">
     </div>
   </div>
-  <div>{{cartSevice.count}}</div>
 </header>
