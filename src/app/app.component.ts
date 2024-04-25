@@ -1,59 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductType} from "./types/product.type";
+import {ProductService} from "./services/product.service";
+import {CartService} from "./services/cart.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  public products: ProductType[] = [
-    {
-      image: 'product1.png',
-      title: 'Мясная Делюкс',
-      description: 'Пепперони, лук, бекон, томатная паста, колбаски, перец, грибы, соус чили, ананасы'
-    },
-    {
-      image: 'product2.png',
-      title: 'Морская Премиум',
-      description: 'Перец, сыр, креветки, кальмары, мидии, лосось'
-    },
-    {
-      image: 'product3.png',
-      title: 'Бекон и Сосиски',
-      description: 'Бекон, сыр, сосиски, ананас, томатная паста'
-    },
-    {
-      image: 'product4.png',
-      title: 'Куриная Делюкс',
-      description: 'Курица, ананас, сыр Пепперони, соус для пиццы, томатная паста'
-    },
-    {
-      image: 'product5.png',
-      title: 'Барбекю Премиум',
-      description: 'Свинина BBQ, соус Барбкею, сыр, курица, соус для пиццы, соус чили'
-    },
-    {
-      image: 'product6.png',
-      title: 'Пепперони Дабл',
-      description: 'Пепперони, сыр, колбаса 2 видов: обжаренная и вареная'
-    },
-    {
-      image: 'product7.png',
-      title: 'Куриное трио',
-      description: 'Жареная курица, Тушеная курица, Куриные наггетсы, перец, сыр, грибы, соус для пиццы'
-    },
-    {
-      image: 'product8.png',
-      title: 'Сырная',
-      description: 'Сыр Джюгас, Сыр с плесенью, Сыр Моцарелла, Сыр секретный'
-    },
-  ];
+export class AppComponent implements OnInit{
+  public products: ProductType[] = [];
 
   public formValues = {
     productTitle: '',
     address: '',
     phone: ''
+  }
+
+  constructor(private productService: ProductService,
+              public cartSevice: CartService) {
+  }
+
+  ngOnInit() {
+    this.products = this.productService.getProducts();
   }
 
   public scrollTo(target: HTMLElement): void {
@@ -63,6 +32,7 @@ export class AppComponent {
   public addToCart(product: ProductType, orderElement:HTMLElement): void {
     this.scrollTo(orderElement);
     this.formValues.productTitle = product.title;
+    this.cartSevice.count += 1;
   }
 
   public createOrder(): void {

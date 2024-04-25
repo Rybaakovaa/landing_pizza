@@ -27,6 +27,20 @@ body {
   margin: 0 auto;
 }
 
+.btn {
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  padding: 22px;
+  box-sizing: border-box;
+
+  background-color: rgb(255, 175, 24);
+
+  font-size: 16px;
+  font-family: MullerBold, sans-serif;
+  color: rgb(56, 36, 0);
+}
+
 
 /*1024-1229px*/
 @media screen and (max-width: 1229px) {
