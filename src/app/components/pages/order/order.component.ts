@@ -16,17 +16,18 @@ export class OrderComponent implements OnInit {
   }
 
   constructor(private cartService: CartService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private activaredRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     // this.formValues.productTitle = this.cartService.product;
 
-    // this.activatedRoute.queryParams.subscribe((params) => {
-    //    if (params['product']) this.formValues.productTitle = params['product'];
-    // });
-
-    const productParam = this.activatedRoute.snapshot.queryParamMap.get('product');
-    if (productParam) this.formValues.productTitle = productParam;
+    this.activatedRoute.queryParams.subscribe((params) => {
+       if (params['product']) this.formValues.productTitle = params['product'];
+    });
+    //
+    // const productParam = this.activatedRoute.snapshot.queryParamMap.get('product');
+    // if (productParam) this.formValues.productTitle = productParam;
   }
 
 
