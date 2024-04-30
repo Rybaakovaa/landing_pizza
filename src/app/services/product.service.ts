@@ -1,53 +1,27 @@
 import { Injectable } from '@angular/core';
 import {ProductType} from "../types/product.type";
+import {HttpClient} from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class ProductService {
+  private products: ProductType[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getProducts(): ProductType[] {
-    return [
-      {
-        image: 'product1.png',
-        title: 'Мясная Делюкс',
-        description: 'Пепперони, лук, бекон, томатная паста, колбаски, перец, грибы, соус чили, ананасы'
-      },
-      {
-        image: 'product2.png',
-        title: 'Морская Премиум',
-        description: 'Перец, сыр, креветки, кальмары, мидии, лосось'
-      },
-      {
-        image: 'product3.png',
-        title: 'Бекон и Сосиски',
-        description: 'Бекон, сыр, сосиски, ананас, томатная паста'
-      },
-      {
-        image: 'product4.png',
-        title: 'Куриная Делюкс',
-        description: 'Курица, ананас, сыр Пепперони, соус для пиццы, томатная паста'
-      },
-      {
-        image: 'product5.png',
-        title: 'Барбекю Премиум',
-        description: 'Свинина BBQ, соус Барбкею, сыр, курица, соус для пиццы, соус чили'
-      },
-      {
-        image: 'product6.png',
-        title: 'Пепперони Дабл',
-        description: 'Пепперони, сыр, колбаса 2 видов: обжаренная и вареная'
-      },
-      {
-        image: 'product7.png',
-        title: 'Куриное трио',
-        description: 'Жареная курица, Тушеная курица, Куриные наггетсы, перец, сыр, грибы, соус для пиццы'
-      },
-      {
-        image: 'product8.png',
-        title: 'Сырная',
-        description: 'Сыр Джюгас, Сыр с плесенью, Сыр Моцарелла, Сыр секретный'
-      },
-    ];
+  getProducts(): Observable<ProductType[]> {
+    return this.http.get<ProductType[]>('http://testologia.ru/pizzas')
+  }
+
+  getProduct(id: number): Observable<ProductType> {
+    return this.http.get<ProductType>('http://testologia.ru/pizzas?id=' + id.toString())
+  }
+
+  createOrder(data: {
+    product: string,
+    address: string,
+    phone: string
+  }) {
+    return this.http.post<{ success: boolean, message?: string }>('http://testologia.ru/order-pizza', data)
   }
 }

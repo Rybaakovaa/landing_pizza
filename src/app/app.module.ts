@@ -13,6 +13,8 @@ import { MainComponent } from './components/pages/main/main.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ProductsComponent } from './components/pages/products/products.component';
 import { OrderComponent } from './components/pages/order/order.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptor} from "./auth/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -29,9 +31,17 @@ import { OrderComponent } from './components/pages/order/order.component';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [ProductService],
+  providers: [
+    ProductService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

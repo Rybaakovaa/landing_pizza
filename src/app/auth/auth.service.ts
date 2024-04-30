@@ -9,6 +9,10 @@ export class AuthService {
 
   private isLogged = false;
 
+  getToken() {
+    return 'test';
+  }
+
   logIn() {
     this.isLogged = true;
   }

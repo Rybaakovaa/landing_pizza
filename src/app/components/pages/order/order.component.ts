@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CartService} from "../../../services/cart.service";
 import {ActivatedRoute} from "@angular/router";
+import {ProductService} from "../../../services/product.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, OnDestroy {
 
   public formValues = {
     productTitle: '',
@@ -17,12 +19,16 @@ export class OrderComponent implements OnInit {
 
   constructor(private cartService: CartService,
               private activatedRoute: ActivatedRoute,
-              private activaredRoute: ActivatedRoute) { }
+              private productService: ProductService) { }
+
+
+  private subsctiption: Subscription | null = null;
+  private subsctiptionOrder: Subscription | null = null;
 
   ngOnInit(): void {
     // this.formValues.productTitle = this.cartService.product;
 
-    this.activatedRoute.queryParams.subscribe((params) => {
+    this.subsctiption = this.activatedRoute.queryParams.subscribe((params) => {
        if (params['product']) this.formValues.productTitle = params['product'];
     });
     //
@@ -30,6 +36,10 @@ export class OrderComponent implements OnInit {
     // if (productParam) this.formValues.productTitle = productParam;
   }
 
+  ngOnDestroy() {
+    this.subsctiption?.unsubscribe();
+    this.subsctiptionOrder?.unsubscribe();
+  }
 
   public createOrder(): void {
     if (!this.formValues.productTitle) {
@@ -46,12 +56,24 @@ export class OrderComponent implements OnInit {
     }
 
     // ajax
-    alert('Спасибо за заказ!');
+    this.subsctiptionOrder = this.productService.createOrder({
+      product: this.formValues.productTitle,
+      address: this.formValues.address,
+      phone: this.formValues.phone,
+    })
+      .subscribe(response => {
+        if (response.success && !response.message) {
+          alert('Спасибо за заказ!');
 
-    this.formValues = {
-      productTitle: '',
-      address: '',
-      phone: ''
-    }
+          this.formValues = {
+            productTitle: '',
+            address: '',
+            phone: ''
+          }
+        } else {
+          alert('Ошибка!');
+        }
+      })
+
   }
 }
