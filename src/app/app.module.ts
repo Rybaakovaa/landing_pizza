@@ -11,6 +11,10 @@ import {HeaderComponent} from "./shared/layout/header/header.component";
 import {FooterComponent} from "./shared/layout/footer/footer.component";
 import { LayoutComponent } from './views/layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
     // NgbModule
   ],
   providers: [],
