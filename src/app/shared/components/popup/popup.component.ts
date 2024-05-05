@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-popup',
@@ -6,5 +7,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PopupComponent {
 
+  @ViewChild('popup')
+  popup!: TemplateRef<ElementRef>;
+
   @Input() data: string = '';
+
+  constructor(private modalService: NgbModal) {
+  }
+
+  open(): void {
+    this.modalService.open(this.popup);
+  }
 }

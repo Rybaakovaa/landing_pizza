@@ -33,30 +33,15 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // @ViewChild('popup')
-  // popup!: TemplateRef<ElementRef>;
-
   ngOnInit() {
-    // var myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
-    // myModal.show();
-
-    // this.modalService.open(NgbdModal2Content, {});
-
     this.observable.subscribe((param: string) => {
       console.log(param);
     })
   }
 
+  @ViewChild(PopupComponent)
+  private popupComponent!: PopupComponent;
   ngAfterViewInit() {
-    // this.modalService.open(this.popup, {});
-
-    var modalRef = this.modalService.open(PopupComponent);
-    modalRef.componentInstance.data = " My component!";
+    this.popupComponent.open();
   }
-
-
-
-  // test(popup: TemplateRef<ElementRef>) {
-  //   this.modalService.open(popup, {});
-  // }
 }

@@ -18,7 +18,8 @@ import { PopupComponent } from './components/popup/popup.component';
   ],
   exports: [
     ProductCartComponent,
-    CoolInputDirective
+    CoolInputDirective,
+    PopupComponent
   ]
 })
 export class SharedModule { }
