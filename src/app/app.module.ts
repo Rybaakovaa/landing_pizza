@@ -3,45 +3,30 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
-import { HeaderComponent } from './components/common/header/header.component';
-import { FooterComponent } from './components/common/footer/footer.component';
-import { ProductComponent } from './components/common/product/product.component';
-import { CoolInputDirective } from './directive/cool-input.directive';
-import {ProductService} from "./services/product.service";
 import { AppRoutingModule } from './app-routing.module';
-import { MainComponent } from './components/pages/main/main.component';
-import { AboutComponent } from './components/pages/about/about.component';
-import { ProductsComponent } from './components/pages/products/products.component';
-import { OrderComponent } from './components/pages/order/order.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AuthInterceptor} from "./auth/auth.interceptor";
+import { HttpClientModule} from "@angular/common/http";
+import {CoreModule} from "./core/core.module";
+import {SharedModule} from "./shared/shared.module";
+import {HeaderComponent} from "./shared/layout/header/header.component";
+import {FooterComponent} from "./shared/layout/footer/footer.component";
+import { LayoutComponent } from './views/layout.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductComponent,
-    CoolInputDirective,
-    MainComponent,
-    AboutComponent,
-    ProductsComponent,
-    OrderComponent
+    AppComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    CoreModule,
+    SharedModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [
-    ProductService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
