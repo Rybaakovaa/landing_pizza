@@ -42,6 +42,6 @@ export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild(PopupComponent)
   private popupComponent!: PopupComponent;
   ngAfterViewInit() {
-    this.popupComponent.open();
+    // this.popupComponent.open();
   }
 }
